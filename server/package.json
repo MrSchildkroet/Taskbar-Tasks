@@ -1,0 +1,26 @@
+{
+  "name": "taskbar-tasks",
+  "version": "1.0.0",
+  "description": "Taskbar Tray Icon where you can manage tasks",
+  "license": "MIT",
+  "author": "MrSchildkroet",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/main.ts",
+    "build": "tsc",
+    "lint": "npx eslint"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "prettier": "^3.9.6",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "chokidar": "^5.0.0",
+    "systray2": "^2.1.4",
+    "webview-nodejs": "^0.5.0"
+  }
+}
