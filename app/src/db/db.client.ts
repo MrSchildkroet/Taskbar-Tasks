@@ -2,11 +2,12 @@ import Database from "better-sqlite3";
 import { app } from "electron";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { PATHS } from "../paths";
 
 let db: Database.Database;
 
 export function initDb(): Database.Database {
-  const dbPath = join(app.getPath("userData"), "app.db");
+  const dbPath = PATHS.dbPath;
 
   db = new Database(dbPath);
   db.pragma("journal_mode = WAL");

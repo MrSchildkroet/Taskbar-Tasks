@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import { join } from "node:path";
 import { createTray } from "./tray";
-import { initDb } from "./db/db.client";
+import { getDb, initDb } from "./db/db.client";
 import { registerIpcHandlers } from "./ipc/handler";
 
 let win: BrowserWindow | null = null;
@@ -46,4 +46,8 @@ app.on("window-all-closed", () => {});
 app.on("browser-window-blur", () => {
   if (!app.isPackaged) return;
   win?.hide();
+});
+
+app.on("will-quit", () => {
+  getDb().close();
 });
