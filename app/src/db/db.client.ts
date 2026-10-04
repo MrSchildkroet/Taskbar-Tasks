@@ -9,6 +9,8 @@ let db: Database.Database;
 export function initDb(): Database.Database {
   const dbPath = PATHS.dbPath;
 
+  console.log(dbPath);
+
   db = new Database(dbPath);
   db.pragma("journal_mode = WAL");
   db.pragma("foreign_keys = ON");

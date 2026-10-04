@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { createTray } from "./tray";
 import { getDb, initDb } from "./db/db.client";
 import { registerIpcHandlers } from "./ipc/handler";
+import { ensurePaths } from "./paths";
 
 let win: BrowserWindow | null = null;
 let tray: ReturnType<typeof createTray> | null = null;
@@ -35,6 +36,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  ensurePaths();
   initDb();
   registerIpcHandlers();
   createWindow();
