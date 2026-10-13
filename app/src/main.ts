@@ -1,8 +1,8 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, globalShortcut } from "electron";
 import { join } from "node:path";
 import { createTray } from "./tray";
 import { getDb, initDb } from "./db/db.client";
-import { registerIpcHandlers } from "./ipc/handler";
+import { registerIpcHandlers } from "./ipc/index";
 import { ensurePaths } from "./paths";
 
 let win: BrowserWindow | null = null;
@@ -28,6 +28,13 @@ function createWindow() {
     if (!win?.isVisible()) win?.hide();
   });
 
+  win.webContents.on(
+    "console-message",
+    (_event, level, message, line, sourceId) => {
+      console.log(`[renderer] ${message}`);
+    },
+  );
+
   if (!app.isPackaged) {
     win.loadURL("http://localhost:5173");
   } else {
@@ -36,6 +43,9 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  globalShortcut.register("CommandOrControl+Alt+D", () => {
+    win?.webContents.openDevTools({ mode: "detach" });
+  });
   ensurePaths();
   initDb();
   registerIpcHandlers();
